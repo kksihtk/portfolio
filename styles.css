@@ -423,7 +423,7 @@ a.accent-text:hover {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transform: translateZ(-1000px) rotateY(-180deg) translateX(35%);
+  transform: translateZ(-900px) rotateY(-180deg) translateX(35%);
 }
 
 
@@ -508,4 +508,10 @@ a.accent-text:hover {
   .welcome-image-square {
     margin-bottom: 20px;
   }
+}
+
+.drift {
+    position: relative;
+    transition: transform 0.3s ease-out;
+    will-change: transform;
 }

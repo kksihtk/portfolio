@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KKSIHTKK</title>
+    <title>KKSIHTK</title>
     <!-- Bootstrap Online-->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
@@ -11,13 +11,15 @@
     <script src="./libs/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="./libs/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
     <script src="./scripts/script.js" defer></script>
     <!-- VS Editor Script -->
-     <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+    <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
     <script src="./scripts/utils/monacoEditor.js" defer></script>
+    <!-- Inertion Drift Script -->
+    <script src="./scripts/utils/inertionElementDrift.js" defer></script>
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Google Fonts -->
@@ -53,7 +55,7 @@
 
     <header class="fixed-top glass-header text-dark py-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="h1 m-0 logo"><a href="#" class="text-dark">KKSIHTKK</a></h1>
+            <h1 class="h1 m-0 logo"><a href="#" class="text-dark">KKSIHTK</a></h1>
             <nav>
                 <ul class="nav mobile-hidden">
                     <li class="nav-item"><a href="#backend" class="nav-link fs-4">Backend</a></li>
@@ -74,7 +76,7 @@
 
     <main>
     <section class="hero-banner d-flex align-items-center" style="min-height: 100vh; padding-top: 80px;">
-      <div class="container">
+      <div class="container drift">
         <div class="row align-items-center justify-content-center mb-5 hero-banner-row">
           <div class="col-md-4">
             <h1 class="display-2 fw-bold mb-1 text-align-justify"><span class="accent-text indie-flower-regular">Creativity</span>  is <br>about <span class="accent-text anton-regular">me</span>.</h1>
@@ -100,7 +102,7 @@
     </section>
 
     <section class="d-flex" style="min-height: 100vh; padding-top: 80px;" id="aboutme">
-      <div class="container">
+      <div class="container drift">
         <h2 class="w-100 text-center display-5 mt-5"><span class="accent-text font-weight-800">Who</span> I am?</h2>
         <div class="row row-cols-2 justify-content-between">
 
@@ -171,7 +173,7 @@
     </section>
 
     <section class="d-flex" style="min-height: 100vh; padding-top: 80px;">
-      <div class="container">
+      <div class="container drift">
 
         <section class="row justify-content-between reverse flex-row-reverse">
 
@@ -214,7 +216,7 @@
 
         <span class="mb-5" id="photography"></span>
 
-        <section class="row justify-content-between">
+        <section class="row justify-content-between drift">
           <div class="glass-card p-5 col-md-6 my-5">
 
             <header class="d-flex text-align-center justify-content-center photography-header"><h1 class="h1 text-dark">Photography</h1></header>
@@ -241,7 +243,7 @@
     </section>
 
     <section class="d-flex mb-5" style="min-height: 100vh; padding-top: 80px;" id="">      
-      <div class="container">
+      <div class="container drift">
 
         <span id="music"></span>
 
@@ -270,7 +272,7 @@
     </section>
 
     <section class="d-flex mb-5" style="min-height: 75vh; padding-top: 80px;" id="contact">
-      <div class="container">
+      <div class="container drift">
         <div class="d-flex justify-content-center">
           <div class="glass-card p-5 my-5 w-75">
             <header class="d-flex text-align-center justify-content-center photography-header"><h1 class="h1 text-dark"><span class="accent-text font-weight-800">Contact</span> Me!</h1></header>
@@ -296,7 +298,7 @@
   <footer class="glass-footer text-dark py-3">
   <div class="container d-flex flex-column align-items-center">
     <h1 class="h1 m-0 logo">
-      <a href="#" class="text-dark">KKSIHTKK</a>
+      <a href="#" class="text-dark">KKSIHTK</a>
     </h1>
     <p class="mb-1">
       © 2025. Content (design, photos, music) is licensed under 
@@ -312,5 +314,4 @@
   </div>
 </footer>
 </body>
-
 </html>
