@@ -1,0 +1,7 @@
+.image-card {
+    /* transition: 1s; */
+}
+
+.image-card img:hover {
+    box-shadow: 0 8px 16px rgb(0, 0, 0);
+}

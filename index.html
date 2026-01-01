@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <title>KKSIHTK</title>
+    <!-- Bootstrap Online-->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
+    <!-- Bootstrap Ofline -->
+    <script src="./libs/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js" defer></script>
+    <link href="./libs/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <script src="./scripts/script.js" defer></script>
+    <!-- VS Editor Script -->
+     <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+    <script src="./scripts/utils/monacoEditor.js" defer></script>
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Google Fonts -->
@@ -29,14 +36,34 @@
     <style>
         body { font-family: 'Inria Sans', sans-serif; }
         h1 { font-weight: 700; } 
+
+        .blob-wrapper-1 { top: 1%; left: -10px; }
+        .blob-wrapper-2 { top: 40%; right: 10px; }
+        .blob-wrapper-3 { top: 80%; left: 20%; transform: translateX(-50%); }
     </style>
 </head>
 <body>
-    <header class=" fixed-top bg-white text-black py-3">
+    <button id="scrollToTopBtn" class="scroll-to-top-btn">
+      <i class="bi bi-arrow-up-short"></i>
+    </button>
+
+    <div class="blob-wrapper blob-wrapper-1"><div class="blob blob-1"></div></div>
+    <div class="blob-wrapper blob-wrapper-3"><div class="blob blob-3"></div></div>
+    <div class="blob-wrapper blob-wrapper-2"><div class="blob blob-2"></div></div>
+
+    <header class="fixed-top glass-header text-dark py-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="h1 m-0 logo"><a href="#">KKSIHTK</a></h1>
+            <h1 class="h1 m-0 logo"><a href="#" class="text-dark">KKSIHTK</a></h1>
             <nav>
-                <ul class="nav">
+                <ul class="nav mobile-hidden">
+                    <li class="nav-item"><a href="#backend" class="nav-link fs-4">Backend</a></li>
+                    <li class="nav-item"><a href="#photography" class="nav-link fs-4">Photography</a></li>
+                    <li class="nav-item"><a href="#music" class="nav-link fs-4">Music</a></li>
+                </ul>
+                <div class="burger fs-1 w-25 hidden">
+                  <i class="bi bi-list fs-1 me-3"></i>
+                </div>
+                <ul class="mobile-nav mobile-hidden hidden">
                     <li class="nav-item"><a href="#backend" class="nav-link fs-4">Backend</a></li>
                     <li class="nav-item"><a href="#photography" class="nav-link fs-4">Photography</a></li>
                     <li class="nav-item"><a href="#music" class="nav-link fs-4">Music</a></li>
@@ -48,58 +75,241 @@
     <main>
     <section class="hero-banner d-flex align-items-center" style="min-height: 100vh; padding-top: 80px;">
       <div class="container">
-        <div class="row align-items-center justify-content-center">
+        <div class="row align-items-center justify-content-center mb-5 hero-banner-row">
           <div class="col-md-4">
             <h1 class="display-2 fw-bold mb-1 text-align-justify"><span class="accent-text indie-flower-regular">Creativity</span>  is <br>about <span class="accent-text anton-regular">me</span>.</h1>
             <p class="lead mb-1 fw-semibold fs-1 mt-0">
                 Kudbidinov Alijon
             </p>
-            <h2 class="mt-0">I'm a <span class="accent-text" id="animated-text">Backend-dev</span><span class="cursor">|</span></h2>
+            <h2 class="mt-0 mb-3">I'm a <span class="accent-text" id="animated-text">Backend-dev</span><span class="cursor">|</span></h2>
             <div class="social-links d-flex justify-content-between">
-                <div class="social-square"><a href="#" class="social-icon"><img src="./socials/github.png" alt="github"></a></div>
-                <div class="social-square"><a href="#" class="social-icon"><img src="./socials/instagram.png" alt="instagram"></a></div>
-                <div class="social-square"><a href="#" class="social-icon"><img src="./socials/soundcloud.png" alt="soundcloud"></a></div>
-                <div class="social-square"><a href="#" class="social-icon"><img src="./socials/telegram.png" alt="telegram"></a></div>
+                <div class="social-square"><a href="https://github.com/kksihtk" class="social-icon"><img src="./socials/github.png" alt="github"></a></div>
+                <div class="social-square"><a href="https://www.instagram.com/kksihtkk/" class="social-icon"><img src="./socials/instagram.png" alt="instagram"></a></div>
+                <div class="social-square"><a href="https://soundcloud.com/ali-kudbidinov" class="social-icon"><img src="./socials/soundcloud.png" alt="soundcloud"></a></div>
+                <div class="social-square"><a href="https://t.me/kksihtk" class="social-icon"><img src="./socials/telegram.png" alt="telegram"></a></div>
             </div>
           </div>
-          <div class="col-md-4 text-center">
-            <div class="welcome-image-square"><img src="./images/welcome.png" alt=""></div>
+          <div class="col-md-4 text-center tilt-card">
+            <div class="welcome-image-square" id="cardTilt"><img src="./images/-.png" alt=""></div>
           </div>
         </div>
         <div class="readmore display-6 d-flex justify-content-center align-items-center mt-5">
-          <a href="#backend" class="text-decoration-none">Read more...</a>
+          <a href="#aboutme" class="text-decoration-none fs-1">Read more...</a>
         </div>
       </div>
     </section>
 
-    <section class="d-flex" style="min-height: 100vh; padding-top: 80px;" id="backend">
+    <section class="d-flex" style="min-height: 100vh; padding-top: 80px;" id="aboutme">
       <div class="container">
-        <header class="d-flex text-align-center justify-content-center backend-header"><h1 class="h1">Backend</h1></header>
-        <div class="row">
-          <div class="col-md-6">
-            <p class="lead ti-1 paragraph mb-1 mt-4">I specialize in backend development for web applications — from designing architecture to implementing and optimizing business logic. My focus is on reliability, scalability, and clean, maintainable code.</p>
-            <p class="lead ti-1 paragraph mb-1">My main tech stack includes <strong>C# / .NET</strong>, <strong>ASP.NET Core</strong>, <strong>Entity Framework</strong>, and <strong>MS SQL Server</strong>. I also use <strong>Blazor</strong> and <strong>Windows Forms</strong> when client-side functionality is needed.</p>
-            <p class="lead ti-1 paragraph mb-1">I'm familiar with Docker, REST APIs, JWT authentication, endpoint protection, logging, and database migrations. I prefer clear separation of concerns and a modular architecture.</p>
-            <p class="lead ti-1 paragraph mb-1">I enjoy building backend systems that not only work, but are also easy to maintain. I believe a good server is one the user never notices — because it's fast and dependable.</p>
-            
+        <h2 class="w-100 text-center display-5 mt-5"><span class="accent-text font-weight-800">Who</span> I am?</h2>
+        <div class="row row-cols-2 justify-content-between">
+
+          <div class="col-md-4">
+            <div class="glass-card p-4">
+              <div class="glass-card-header">
+                <h2 class="text-dark">Kudbidinov Alijon</h2>
+              </div>
+              <div class="glass-card-body pt-0">
+                <p class="mb-0 text-dark fs-5">Age <span id="CurrentAge" class="colored-text">##</span> by 2006-09-12</p>
+                <p class="mb-3 text-dark fs-6">Kazakhstan, Almaty</p>
+                <p class="mb-0 text-dark fs-5 mt-1">Contact Me!</p>
+                <p class="mb-0 fs-5"><a href="mailto:alijonkudbidinov@yandex.kz" class="accent-text">alijonkudbidinov@yandex.kz</a></p>
+                <p class="mb-3 fs-5 text-dark"><a href="t.me/kksihtk" class="accent-text">@kksihtk</a> in Telegram</p>
+                <p class="mb-0 fs-4 text-dark">Response time up to 3 days</p>
+
+              </div>
+              <div class="glass-card-footer">
+                <p>Current as of August 25, 2025</p>
+              </div>
+            </div>
           </div>
-          <div class="col-md-6">
-            <img src="./images/backend-1.png" class="py-3 w-100 rounded" alt="">
+
+          <div class="col-md-8 px-0 py-4 ps-5">
+            <p class="indent-basic fs-5 paragraph">
+             I'm a backend developer with a passion for creating efficient and scalable applications.
+             I love working with <span class="colored-text">ASP.NET</span>, <span class="colored-text">SSMS</span>
+             and <span class="colored-text">MS SQL Server</span> to build robust server-side solutions. In my free time,
+             I enjoy <span class="colored-text">photography</span> and <span class="colored-text">music</span>, which 
+             inspire my <span class="colored-text indie-flower-regular">creative</span> approach to coding.
+            </p>
+
+                <div class="container py-4 mobile-hidden">
+                  <h2 class="mb-4">Education</h2>
+                  <section class="row">
+                    <div class="col-md-6">
+                      <div class="border-start border-2 ps-3">
+                    <div class="position-relative mb-4">
+                      <div class="position-absolute top-0 start-0 translate-middle rounded-circle" style="margin-top: 12px; width: 1rem; height: 1rem; background-color: var(--accent-color);"></div>
+                      <h5 class="mb-1 indent-basic">2025–2028 — University &laquo;Turan&raquo;</h5>
+                      <a href="https://turan.edu.kz/ru/obrprogramms/software-engineering/" class="mb-0 accent-text indent-link-double">6В06104 Software Engineering</a>
+                      <p class="mb-0 indent-double">Bachelor <span class="colored-text">(In Progress)</span></p>
+                    </div>
+                    <div class="position-relative mb-4">
+                      <div class="position-absolute top-0 start-0 translate-middle rounded-circle" style="margin-top: 12px; width: 1rem; height: 1rem; background-color: var(--accent-color);"></div>
+                      <h5 class="mb-1 indent-basic">2022–2025 — University College &laquo;Turan&raquo;</h5>
+                      <a href="https://www.turan-college.edu.kz/ru/specialty/503-programmnoje_obespechenije/" class="mb-0 accent-text indent-link-double">06130100 Software</a>
+                      <p class="mb-0 indent-double">Qualification "Information Systems Technician"</p>
+                    </div>
+                    <div class="position-relative">
+                      <div class="position-absolute top-0 start-0 translate-middle rounded-circle" style="margin-top: 12px; width: 1rem; height: 1rem; background-color: var(--accent-color);"></div>
+                      <h5 class="mb-1 indent-basic">2013–2022 — MSI School-Gymnasium No. 22</h5>
+                      <p class="mb-0 indent-double">General secondary education</p>
+                    </div>
+                  </div>
+                    </div>
+                    <div class="col-md-6">
+                      :)
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+
           </div>
+
+        </div>
     </section>
 
-    <section class="d-flex" style="min-height: 100vh; padding-top: 80px;" id="photography">
+    <section class="d-flex" style="min-height: 100vh; padding-top: 80px;">
       <div class="container">
-        <header class="d-flex text-align-center justify-content-center photography-header"><h1 class="h1">Photography</h1></header>
 
-    </section>
+        <section class="row justify-content-between reverse flex-row-reverse">
 
-    <section class="d-flex" style="min-height: 100vh; padding-top: 80px;" id="music">
-      <div class="container">
-        <header class="d-flex text-align-center justify-content-center music-header"><h1 class="h1">Music</h1></header>
+          <span class="" id="backend"></span>
+          <div class="glass-card p-5 col-md-6 my-5">
+
+            <header class="d-flex text-align-center justify-content-center photography-header"><h1 class="h1 text-dark">Backend</h1></header>
+
+          <p class="indent-basic text-dark mt-2 fs-5 paragraph">
+            Specializing in server-side development, with a focus on creating efficient, scalable, and maintainable systems. Experienced in using <span class="colored-text">ASP.NET</span>, <span class="colored-text">SSMS</span>, and <span class="colored-text">MS SQL Server</span> to build robust APIs and manage complex data operations. Dedicated to performance tuning, secure architecture, and clean, well-documented code.
+          </p>
+        <p class="indent-basic text-dark fs-5 mt-5 paragraph">
+          I take pride in writing clean, maintainable code and continuously improving my skills through real-world projects and collaboration. My development process often includes designing RESTful APIs, optimizing database queries, and ensuring security best practices are followed at every level.      
+        </p>
+        <p class="indent-basic text-dark fs-5 mt-5 paragraph">
+          Exploring new technologies is a key part of my workflow. Whether I'm experimenting with <span class="colored-text">Blazor</span> for interactive UIs or deploying apps with <span class="colored-text">Docker</span>, I’m always seeking ways to push the boundaries of what I can build. This curiosity helps me stay adaptable and bring fresh ideas to every project.
+        </p>
+        <div class="d-flex justify-content-center"><a href="./pages/backend.html" class="btn glass_btn-primary accent-text fs-3">Read more</a></div>
+        </div>
+        <div class="p-5 col-md-6">
+          <div id="editor" style="height:100%; width: 100%; border:1px solid var(--accent-color-light);"></div>
+        </div>
+        </section>
 
       </div>
     </section>
+
+    <section class="d-flex" style="min-height: 100vh; padding-top: 80px;" >
+      <div class="container">
+
+        <div class="scene">
+          <div class="carousel">
+            <img src="./images/photos/photo1.webp" />
+            <img src="./images/photos/photo2.webp" />
+            <img src="./images/photos/photo3.webp" />
+            <img src="./images/photos/photo4.webp" />
+            <img src="./images/photos/photo5.webp" />
+          </div>
+        </div>
+
+        <span class="mb-5" id="photography"></span>
+
+        <section class="row justify-content-between">
+          <div class="glass-card p-5 col-md-6 my-5">
+
+            <header class="d-flex text-align-center justify-content-center photography-header"><h1 class="h1 text-dark">Photography</h1></header>
+
+          <p class="indent-basic text-dark fs-5 mt-2 ">
+              I photograph in the streets — where everything is real. I'm drawn to spontaneity, fleeting glances, unplanned scenes. In each frame, I try to preserve a sense of presence: so the viewer doesn't just see a moment, but feels its rhythm, its breath, its silence or noise.
+        </p>
+        <p class="indent-basic text-dark fs-5 mt-5">
+              In my work, I follow clear visual principles — composition, balance, legibility. That matters especially when the images are meant for others. But in personal projects, I allow myself to break the rules, to explore something different: distortions, reflections, caught fragments of light. It’s not about technique — it’s about feeling.
+        </p>
+        <p class="indent-basic text-dark fs-5 mt-5">
+              I shoot with Canon gear and choose lenses depending on the story — often using telephoto to observe from a distance without disturbing the moment. Equipment helps, but it doesn't define the result: what matters most is raising the camera at the right time and being honest about what you see.
+        </p>
+        <div class="d-flex justify-content-center pt-3"><a href="./pages/photography.html" class="btn glass_btn-primary accent-text fs-3">Read more</a></div>
+        </div>
+        <div class="p-5 col-md-6">
+          <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DMcURSRNRpS/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DMcURSRNRpS/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Посмотреть эту публикацию в Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DMcURSRNRpS/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Публикация от kksihtk (@kksihtkk)</a></p></div></blockquote>
+<script async src="//www.instagram.com/embed.js"></script>
+        </div>
+        </section>
+            
+
+      </div>
+    </section>
+
+    <section class="d-flex mb-5" style="min-height: 100vh; padding-top: 80px;" id="">      
+      <div class="container">
+
+        <span id="music"></span>
+
+        <section class="row justify-content-between reverse flex-row-reverse">
+          <div class="glass-card p-5 col-md-6 my-5">
+
+            <header class="d-flex text-align-center justify-content-center photography-header"><h1 class="h1 text-dark">Music</h1></header>
+
+          <p class="indent-basic text-dark fs-5 mt-2">
+            I make beats for myself — not for an audience, not for recognition. Just because sometimes there's a sound that needs to exist. I don't follow a genre, and I don't try to. What comes out is a messy mix of ambient, trash sound, electronic noise, and whatever else feels right in the moment.
+          </p>
+        <p class="indent-basic text-dark fs-5 mt-5">
+          My process is simple and unpretentious: FL Studio, stock plugins, stock samples. I don't chase pristine quality or perfect arrangement. I chase the feeling — even if it ends up sounding broken, ugly, or unfinished. That's the point. It's raw and it's mine.
+        </p>
+        <p class="indent-basic text-dark fs-5 mt-5">
+          This music isn’t meant to fit anywhere. It’s more like a sonic diary — fragments of thoughts, moods, or distortions that don’t need explanation. If someone else gets something out of it, cool. But I’d be making it either way.
+        </p>
+        <div class="d-flex justify-content-center pt-3"><a href="./pages/music.html" class="btn glass_btn-primary accent-text fs-3">Read more</a></div>
+        </div>
+        <div class="p-5 col-md-6">
+          <iframe class="mt-5 mb-5" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2138904624&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ali-kudbidinov" title="kksihtk" target="_blank" style="color: #cccccc; text-decoration: none;">kksihtk</a> · <a href="https://soundcloud.com/ali-kudbidinov/untitled-m" title="Untitled M" target="_blank" style="color: #cccccc; text-decoration: none;">Untitled M</a></div>
+          <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2125138737&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ali-kudbidinov" title="kksihtk" target="_blank" style="color: #cccccc; text-decoration: none;">kksihtk</a> · <a href="https://soundcloud.com/ali-kudbidinov/1110101-1101110-1110100" title="1110101 1101110 1110100 1101001 1110100 1101100 1100101 1100100 1011111 110010 110001" target="_blank" style="color: #cccccc; text-decoration: none;">1110101 1101110 1110100 1101001 1110100 1101100 1100101 1100100 1011111 110010 110001</a></div>
+        </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="d-flex mb-5" style="min-height: 75vh; padding-top: 80px;" id="contact">
+      <div class="container">
+        <div class="d-flex justify-content-center">
+          <div class="glass-card p-5 my-5 w-75">
+            <header class="d-flex text-align-center justify-content-center photography-header"><h1 class="h1 text-dark"><span class="accent-text font-weight-800">Contact</span> Me!</h1></header>
+            <p class="indent-basic text-dark fs-5 mt-2">
+              If you have any questions, suggestions, or just want to say hi, feel free to reach out! You can contact me via email or Telegram. You can also leave your email and we will answer you within 3 days.
+            </p>
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-6">
+                <form action="none" method="post">
+              <input type="text" name="name" placeholder="Your Name" class="form-control mb-3" required>
+              <input type="email" name="email" placeholder="Your Email" class="form-control mb-3" required>
+              <button type="submit" class="form-control">Submit</button>
+            </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <footer class="glass-footer text-dark py-3">
+  <div class="container d-flex flex-column align-items-center">
+    <h1 class="h1 m-0 logo">
+      <a href="#" class="text-dark">KKSIHTK</a>
+    </h1>
+    <p class="mb-1">
+      © 2025. Content (design, photos, music) is licensed under 
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener" class="accent-text">
+        CC BY 4.0
+      </a>.
+    </p>
+    <p class="mb-0">
+      Source code is also licensed under 
+      <a href="https://opensource.org/licenses/MIT" target="_blank" rel="license noopener" class="accent-text">
+        MIT License</a>, free to use with attribution.
+    </p>
+  </div>
+</footer>
 </body>
 </html>
